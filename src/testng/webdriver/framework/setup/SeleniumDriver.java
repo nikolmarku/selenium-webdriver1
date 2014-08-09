@@ -32,6 +32,7 @@ public class SeleniumDriver {
 		    driver = new EventFiringWebDriver(new FirefoxDriver());			    //firingDriver.ExceptionThrown += firingDriver_TakeScreenshotOnException;
 			WebDriverEventListener eventListener = new WebDriverListener(driver);//WebDriverEventListener
 			driver.register(eventListener);
+			
 		}
 		allBrowserSetup(driver);												//	/*driver.manage().timeouts().implicitlyWait(WeddriverConstant.IMPLICIT_WAIT, TimeUnit.SECONDS);			if(WeddriverConstant.isMaxWindow())        driver.manage().window().maximize();		if(WeddriverConstant.isDeleteCookies())    driver.manage().deleteAllCookies();*/																		//File srcFile =  driver.getScreenshotAs(OutputType.FILE);//((EventFiringWebDriver)	//FileUtils.copyFile(srcFile, new File("testimage.png"));
 		return driver;
@@ -42,17 +43,21 @@ public class SeleniumDriver {
 		if( BrowserType.checkBrowser(browserType) != null ) {
 			switch (BrowserType.checkBrowser(browserType)){
 			    case IE:
-			        driver =  createInternetExplorerDriver();
+			        driver =  createInternetExplorerDriver();	
+			        allBrowserSetup(driver);
 			        break;
 			    case SAFARI:
 			        driver =  createSafariDriver();
+			        allBrowserSetup(driver);
 			        break;
 			    case CHROME:
 			        driver =  createChromeDriver();
+			        allBrowserSetup(driver);
 			        break;
-			    case FIREFOX:
+			    case FIREFOX:			    	
 			    default:
 			        driver =  createFirefoxDriver(getFirefoxProfile());
+			        allBrowserSetup(driver);
 			        break;
 			}
 		}

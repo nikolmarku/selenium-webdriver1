@@ -7,7 +7,7 @@ import org.testng.log4testng.Logger;
  * @author nikolmarku
  *
  */
-public class BaseTest {
+public class BaseTest implements IBaseTest {
 
 	  private static final Logger LOGGER = Logger.getLogger(BaseTest.class);
 	

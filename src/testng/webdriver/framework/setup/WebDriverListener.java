@@ -33,6 +33,7 @@ public class WebDriverListener implements WebDriverEventListener {
 
 	@Override
 	public void afterClickOn(WebElement arg0, WebDriver arg1) {
+		BasePage.takeScreenshot(".","afterClickOn");
 		// TODO Auto-generated method stub
 		log("afterClickOn ");
 	}
@@ -112,6 +113,7 @@ public class WebDriverListener implements WebDriverEventListener {
 	@Override
 	public void onException(Throwable arg0, WebDriver arg1) {
 		// TODO Auto-generated method stub
+		BasePage.takeScreenshot(".","onException");
 		log("onException ");
 	}
 	

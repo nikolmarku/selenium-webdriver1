@@ -3,13 +3,20 @@ package testng.webdriver.framework.setup;
  * All page definition extends this
  */
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.apache.commons.io.FileUtils;
 
 import static testng.webdriver.framework.setup.SeleniumDriver.getDriver;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.support.events.EventFiringWebDriver;
@@ -19,7 +26,20 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+
+
+
+
+
+
 import testng.webdriver.framework.setup.PageConstant;
+
+import org.openqa.selenium.TakesScreenshot;
+
+
+
+
+
 
 import java.util.logging.Logger;
 
@@ -42,6 +62,8 @@ public abstract class BasePage <T> implements IPageable {
 		getDriver().get(PageConstant.getBaseUrl() + getPageUrl());		
 		ExpectedCondition pageLoadCondition = ((BasePage) page).getPageLoadedCondition();
 		waitForPageToLoad(pageLoadCondition);
+		 
+		
 		return page;
 	}
 	@SuppressWarnings("rawtypes")
@@ -50,6 +72,8 @@ public abstract class BasePage <T> implements IPageable {
 		T page = PageFactory.initElements(getDriver(), clazz);		
 		ExpectedCondition pageLoadCondition = ((BasePage) page).getPageLoadedCondition();
 		waitForPageToLoad(pageLoadCondition);
+		
+		
 		return page;
 	}
 
@@ -171,8 +195,35 @@ public abstract class BasePage <T> implements IPageable {
 		 LOGGER.info(msg);
 	}
 	
+   /**
+import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.apache.commons.io.FileUtils;
+ * @return 
+ * // RemoteWebDriver does not implement the TakesScreenshot class
+        // if the driver does have the Capabilities to take a screenshot
+        // then Augmenter will add the TakesScreenshot methods to the instance
+    */
+    public static void takeScreenshot(String fileName, String fileLocation){
+    	File screenshot = getDriver().getScreenshotAs(OutputType.FILE);    	/*WebDriver augmentedDriver = new Augmenter().augment(getDriver());   File screenshot = ((TakesScreenshot)augmentedDriver).getScreenshotAs(OutputType.FILE);	*/    
+	       try {
+			FileUtils.copyFile(screenshot, new File(fileLocation+"_"+fileName+"_"+getTime()+".png"));
+		} catch (IOException e) {			
+			e.printStackTrace();
+		}
+    }
     
-    
+    public static String getTime(){
+    	Calendar cal = Calendar.getInstance();       
+        Date time=cal.getTime();
+        String timestamp=time.toString();
+           System.out.println(timestamp);
+           String systime=timestamp.replace(":", "-");
+           System.out.println(systime);
+       return systime;
+
+    }
   
     
     

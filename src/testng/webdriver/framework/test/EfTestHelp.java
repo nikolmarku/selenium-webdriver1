@@ -48,7 +48,7 @@ public class EfTestHelp extends BaseTest {
 	
 	@Test(priority = 1)
 	public void open_ef_home_page() {
-		for(int i=0; i<PageConstant.DOMAIN_LIST.size(); i++){ //testUrls
+		for(int i=0; i<2; i++){ //testUrls   PageConstant.DOMAIN_LIST.size()
 			//set and open url	
 			//PageConstant.setBaseUrl(PageConstant.HTTP, PageConstant.URL_BASE, PageConstant.DOMAIN_LIST.get(i), "");
 			//BasePage.open(PageConstant.BASE_URL);
@@ -64,6 +64,7 @@ public class EfTestHelp extends BaseTest {
 			//Assert.assertTrue(ef.getTitle().equals(EfHomePage.TITLE));
 			//((EfHomePage) ef).closeHomePopup();
 			Assert.assertTrue(ef.simpleTest());
+			 
 			
 			//then	
 		}
